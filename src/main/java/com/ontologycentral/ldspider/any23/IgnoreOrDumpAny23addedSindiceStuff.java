@@ -6,7 +6,7 @@ import org.apache.any23.vocab.SINDICE;
 import org.apache.any23.writer.TripleHandler;
 import org.apache.any23.writer.TripleHandlerException;
 import org.eclipse.rdf4j.model.Resource;
-import org.eclipse.rdf4j.model.IRI; // Changed from URI
+import org.eclipse.rdf4j.model.IRI; // This import is correct
 import org.eclipse.rdf4j.model.Value;
 
 /**
@@ -39,7 +39,7 @@ public class IgnoreOrDumpAny23addedSindiceStuff implements TripleHandler {
 	}
 
 	@Override
-	public void startDocument(org.apache.any23.model.IRI documentIRI) throws TripleHandlerException { // Changed URI to org.apache.any23.model.IRI
+	public void startDocument(org.eclipse.rdf4j.model.IRI documentIRI) throws TripleHandlerException { // Changed to org.eclipse.rdf4j.model.IRI
 		blocker.startDocument(documentIRI);
 		blocker.unblockDocument();
 	}
@@ -51,10 +51,10 @@ public class IgnoreOrDumpAny23addedSindiceStuff implements TripleHandler {
 	}
 
 	@Override
-	public void receiveTriple(Resource s, IRI p, Value o, IRI g, // Changed URI to IRI for p and g
+	public void receiveTriple(Resource s, IRI p, Value o, IRI g, 
 			ExtractionContext context) throws TripleHandlerException {
 		if (p.stringValue().startsWith(SINDICE.NS))
-			if (dumpHeaders && headerTripleHandler != null) // Added null check for headerTripleHandler
+			if (dumpHeaders && headerTripleHandler != null) 
 				headerTripleHandler.receiveTriple(s, p, o, g, context);
 			else
 				return;
@@ -75,7 +75,7 @@ public class IgnoreOrDumpAny23addedSindiceStuff implements TripleHandler {
 	}
 
 	@Override
-	public void endDocument(org.apache.any23.model.IRI documentIRI) throws TripleHandlerException { // Changed URI to org.apache.any23.model.IRI
+	public void endDocument(org.eclipse.rdf4j.model.IRI documentIRI) throws TripleHandlerException { // Changed to org.eclipse.rdf4j.model.IRI
 		blocker.endDocument(documentIRI);
 	}
 
