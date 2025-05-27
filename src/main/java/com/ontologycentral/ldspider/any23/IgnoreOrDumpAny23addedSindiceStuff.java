@@ -5,9 +5,9 @@ import org.apache.any23.filter.ExtractionContextBlocker;
 import org.apache.any23.vocab.SINDICE;
 import org.apache.any23.writer.TripleHandler;
 import org.apache.any23.writer.TripleHandlerException;
-import org.openrdf.model.Resource;
-import org.openrdf.model.URI;
-import org.openrdf.model.Value;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.IRI; // Changed from URI
+import org.eclipse.rdf4j.model.Value;
 
 /**
  * Any23 adds triples that state e.g. the date or the size of the processed
@@ -38,20 +38,23 @@ public class IgnoreOrDumpAny23addedSindiceStuff implements TripleHandler {
 
 	}
 
-	public void startDocument(URI documentURI) throws TripleHandlerException {
-		blocker.startDocument(documentURI);
+	@Override
+	public void startDocument(org.apache.any23.model.IRI documentIRI) throws TripleHandlerException { // Changed URI to org.apache.any23.model.IRI
+		blocker.startDocument(documentIRI);
 		blocker.unblockDocument();
 	}
 
+	@Override
 	public void openContext(ExtractionContext context)
 			throws TripleHandlerException {
 		blocker.openContext(context);
 	}
 
-	public void receiveTriple(Resource s, URI p, Value o, URI g,
+	@Override
+	public void receiveTriple(Resource s, IRI p, Value o, IRI g, // Changed URI to IRI for p and g
 			ExtractionContext context) throws TripleHandlerException {
 		if (p.stringValue().startsWith(SINDICE.NS))
-			if (dumpHeaders)
+			if (dumpHeaders && headerTripleHandler != null) // Added null check for headerTripleHandler
 				headerTripleHandler.receiveTriple(s, p, o, g, context);
 			else
 				return;
@@ -59,24 +62,29 @@ public class IgnoreOrDumpAny23addedSindiceStuff implements TripleHandler {
 			blocker.receiveTriple(s, p, o, g, context);
 	}
 
+	@Override
 	public void receiveNamespace(String prefix, String uri,
 			ExtractionContext context) throws TripleHandlerException {
 		blocker.receiveNamespace(prefix, uri, context);
 	}
 
+	@Override
 	public void closeContext(ExtractionContext context)
 			throws TripleHandlerException {
 		blocker.closeContext(context);
 	}
 
-	public void endDocument(URI documentURI) throws TripleHandlerException {
-		blocker.endDocument(documentURI);
+	@Override
+	public void endDocument(org.apache.any23.model.IRI documentIRI) throws TripleHandlerException { // Changed URI to org.apache.any23.model.IRI
+		blocker.endDocument(documentIRI);
 	}
 
+	@Override
 	public void setContentLength(long contentLength) {
 		blocker.setContentLength(contentLength);
 	}
 
+	@Override
 	public void close() throws TripleHandlerException {
 		blocker.close();
 	}

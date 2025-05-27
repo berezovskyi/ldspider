@@ -36,9 +36,9 @@ import org.apache.any23.filter.ExtractionContextBlocker;
 import org.apache.any23.vocab.XHTML;
 import org.apache.any23.writer.TripleHandler;
 import org.apache.any23.writer.TripleHandlerException;
-import org.openrdf.model.Resource;
-import org.openrdf.model.URI;
-import org.openrdf.model.Value;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.IRI; // Changed from URI
+import org.eclipse.rdf4j.model.Value;
 
 /**
  * A {@link TripleHandler} that suppresses output of the RDFa parser if the
@@ -128,10 +128,12 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 		this(wrapped, false);
 	}
 
-	public void startDocument(URI documentURI) throws TripleHandlerException {
-		blocker.startDocument(documentURI);
+	@Override
+	public void startDocument(org.apache.any23.model.IRI documentIRI) throws TripleHandlerException { // Changed URI to org.apache.any23.model.IRI
+		blocker.startDocument(documentIRI);
 	}
 
+	@Override
 	public void openContext(ExtractionContext context)
 			throws TripleHandlerException {
 		blocker.openContext(context);
@@ -140,7 +142,8 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 		}
 	}
 
-	public void receiveTriple(Resource s, URI p, Value o, URI g,
+	@Override
+	public void receiveTriple(Resource s, IRI p, Value o, IRI g, // Changed URI to IRI for p and g
 			ExtractionContext context) throws TripleHandlerException {
 		// Suppress stylesheet triples.
 		if (alwaysSuppressCSSTriples
@@ -149,24 +152,28 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 		}
 		if (isRDFaContext(context)
 				&& !(p.stringValue().startsWith(XHTML.NS) || isDocumentURIplusSomeText(
-						p, context.getDocumentURI()))) {
+						p, context.getDocumentIRI()))) { // Changed to getDocumentIRI()
 			blocker.unblockContext(context);
 		}
 		if (isRDFaContext(context)
-				&& isDocumentURIplusSomeText(p, context.getDocumentURI()))
+				&& isDocumentURIplusSomeText(p, context.getDocumentIRI())) // Changed to getDocumentIRI()
 			return;
 		blocker.receiveTriple(s, p, o, g, context);
 	}
 
+	@Override
 	public void receiveNamespace(String prefix, String uri,
 			ExtractionContext context) throws TripleHandlerException {
 		blocker.receiveNamespace(prefix, uri, context);
 	}
 
-	public void closeContext(ExtractionContext context) {
+	@Override
+	public void closeContext(ExtractionContext context)
+			throws TripleHandlerException { // Added throws TripleHandlerException to match interface
 		blocker.closeContext(context);
 	}
 
+	@Override
 	public void close() throws TripleHandlerException {
 		blocker.close();
 	}
@@ -177,10 +184,12 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 						RDFa11ExtractorFactory.NAME);
 	}
 
-	public void endDocument(URI documentURI) throws TripleHandlerException {
-		blocker.endDocument(documentURI);
+	@Override
+	public void endDocument(org.apache.any23.model.IRI documentIRI) throws TripleHandlerException { // Changed URI to org.apache.any23.model.IRI
+		blocker.endDocument(documentIRI);
 	}
 
+	@Override
 	public void setContentLength(long contentLength) {
 		// Ignore.
 	}
@@ -202,7 +211,7 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 	 * @return true if the URI is composed of the other URI plus some well-known
 	 *         HTML rel-values.
 	 */
-	public static boolean isDocumentURIplusSomeText(URI u, URI document) {
+	public static boolean isDocumentURIplusSomeText(IRI u, org.apache.any23.model.IRI document) { // Changed second param to org.apache.any23.model.IRI
 		String uString = u.stringValue();
 		String docString = document.stringValue();
 		if (!uString.startsWith(docString))

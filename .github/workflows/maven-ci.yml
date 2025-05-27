@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '8' ] # JDK versions to test against
+        java: [ '8', '11', '17', '21', '24' ] # JDK versions to test against
 
     name: Build with JDK ${{ matrix.java }}
     steps:
