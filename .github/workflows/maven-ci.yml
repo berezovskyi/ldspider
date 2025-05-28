@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '11', '17', '21', '24' ] # JDK versions to test against
+        java: [ '17', '21', '24' ] # JDK versions to test against
     
 
     name: Build with JDK ${{ matrix.java }}
