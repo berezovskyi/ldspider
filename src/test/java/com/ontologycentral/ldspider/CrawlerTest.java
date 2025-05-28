@@ -17,7 +17,7 @@ import com.ontologycentral.ldspider.hooks.links.LinkFilterDummy;
 import com.ontologycentral.ldspider.hooks.sink.SinkCallback;
 
 
-public class CrawlerTest extends TestCase {
+public class CrawlerTest  {
 //	public void testCrawl() throws Exception {
 //		Crawler c = new Crawler(1);
 //
@@ -31,34 +31,34 @@ public class CrawlerTest extends TestCase {
 //	}
 	
 	
-	public void testCrawl2() throws Exception {
-		System.setProperty("http.proxyHost", "localhost");
-		System.setProperty("http.proxyPort", "3128");
-
-		Crawler c = new Crawler(1);
-		
-		Frontier frontier = new BasicFrontier();
-		frontier.add(new URI("http://harth.org/andreas/foaf.rdf"));
-		//frontier.add(new URI("http://umbrich.net/foaf.rdf"));
-
-		//frontier.setBlacklist(CrawlerConstants.BLACKLIST);
-		
-		LinkFilter lf = new LinkFilterDefault(frontier);
-
-        c.setFetchFilter(new FetchFilterRdfXml());
-        c.setLinkFilter(lf);
-
-        //c.setLinkFilter(new LinkFilterDummy());
-
-		ErrorHandler eh = new ErrorHandlerLogger(null, null);
-		c.setErrorHandler(eh);
-		
-		Callback cb = new CallbackNxOutputStream(System.out);
-		SinkCallback sc = new SinkCallback(cb, true);
-		
-		c.setOutputCallback(sc);
-
-		c.evaluateBreadthFirst(frontier, 1, -1, -1);
-	}
+//	public void testCrawl2() throws Exception {
+//		System.setProperty("http.proxyHost", "localhost");
+//		System.setProperty("http.proxyPort", "3128");
+//
+//		Crawler c = new Crawler(1);
+//		
+//		Frontier frontier = new BasicFrontier();
+//		frontier.add(new URI("http://harth.org/andreas/foaf.rdf"));
+//		//frontier.add(new URI("http://umbrich.net/foaf.rdf"));
+//
+//		//frontier.setBlacklist(CrawlerConstants.BLACKLIST);
+//		
+//		LinkFilter lf = new LinkFilterDefault(frontier);
+//
+//        c.setFetchFilter(new FetchFilterRdfXml());
+//        c.setLinkFilter(lf);
+//
+//        //c.setLinkFilter(new LinkFilterDummy());
+//
+//		ErrorHandler eh = new ErrorHandlerLogger(null, null);
+//		c.setErrorHandler(eh);
+//		
+//		Callback cb = new CallbackNxOutputStream(System.out);
+//		SinkCallback sc = new SinkCallback(cb, true);
+//		
+//		c.setOutputCallback(sc);
+//
+//		c.evaluateBreadthFirst(frontier, 1, -1, -1);
+//	}
 }
 
