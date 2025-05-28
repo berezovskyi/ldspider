@@ -10,8 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         java: [ '11', '17', '21', '24' ] # JDK versions to test against
+    
 
     name: Build with JDK ${{ matrix.java }}
     steps:
