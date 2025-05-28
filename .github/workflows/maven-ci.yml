@@ -2,9 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ master ] # Assuming 'master' is your main branch, adjust if different
+    branches: [ master, main, trunk ] # Assuming 'master' is your main branch, adjust if different
   pull_request:
-    branches: [ master ] # Assuming 'master' is your main branch, adjust if different
+    branches: [ master, main, trunk ] # Assuming 'master' is your main branch, adjust if different
 
 jobs:
   build:
