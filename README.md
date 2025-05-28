@@ -1,10 +1,10 @@
 ## Introduction ##
 
+[![Java CI with Maven](https://github.com/berezovskyi/ldspider/actions/workflows/maven-ci.yml/badge.svg)](https://github.com/berezovskyi/ldspider/actions/workflows/maven-ci.yml)
+
 The **LDSpider** project provides a web crawling framework for the Linked Data web.
 
 Requirements and challenges for crawling the Linked Data web are different from regular web crawling, thus the LDSpider project offers a web crawler adapted to traverse and harvest content from the Linked Data web.
-
-Due to [Google's change to Google code](http://google-opensource.blogspot.de/2013/05/a-change-to-google-code-download-service.html), the downloads page cannot be maintained any more, so you have to browse the repository for both code and jars. Note that you can use maven with the google code repository. The groupId is `com.ontologycentral` and the artifactId `ldspider`.
 
 The project is a co-operation between [Andreas Harth](http://harth.org/andreas/) at [AIFB](http://www.aifb.kit.edu/) and [Juergen Umbrich](http://umbrich.net) at [DERI](http://www.deri.ie/). [Aidan Hogan](http://sw.deri.org/~aidanh/), Tobias Kaefer and [Robert Isele](http://www.wiwiss.fu-berlin.de/en/institute/pwo/bizer/team/IseleRobert.html) are contributing.
 
@@ -37,16 +37,15 @@ url = { http://iswc2010.semanticweb.org/pdf/495.pdf }
 
 ### Getting Started ###
 **LDSpider** can be used in two ways:
-  * Through a command line application. [Getting started (CLI)](https://github.com/ldspider/ldspider/wiki/GettingStartedCommandLine)
-  * Through a flexible API, which provides various [Hooks](https://github.com/ldspider/ldspider/wiki/Hooks) to extend the behavior of the crawler. [Getting started (API)](https://github.com/ldspider/ldspider/wiki/GettingStartedAPI)
+  * Through a command line application. 
+  * Through a flexible API, which provides various Hooks to extend the behavior of the crawler. 
+
+**TODO:** *The original README linked to wiki pages for "Getting Started (CLI)" and "Getting Started (API)". Please copy the most relevant content from those wiki pages (if still applicable) directly into this README or link to updated documentation if available.*
 
 ### Community ###
-Sign up to the [LDSpider mailing list](http://groups.google.com/group/ldspider/) via the [web interface](http://groups.google.com/group/ldspider/subscribe/) or by emailing [mailto:ldspider+subscribe@googlegroups.com](mailto:ldspider+subscribe@googlegroups.com)
+**TODO:** *The original README mentioned a Google Groups mailing list. Please verify if this is still the primary communication channel. If so, update the links. If not, provide current community/support information or remove this section.*
 
 ### Acknowledgements ###
 
 ![YourKit logo](https://www.yourkit.com/images/yklogo.png) YourKit supports open source projects with its full-featured Java Profiler.
-YourKit, LLC is the creator of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/index.jsp) and [YourKit .NET Profiler](https://www.yourkit.com/.net/profiler/index.jsp), innovative and intelligent tools for profiling Java and .NET applications. 
-
-<!-- &lt;wiki:gadget url="http://www.ohloh.net/p/gwt/widgets/project\_users.xml" height="100" border="0" /&gt; -->
-
+YourKit, LLC is the creator of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/index.jsp) and [YourKit .NET Profiler](https://www.yourkit.com/.net/profiler/index.jsp), innovative and intelligent tools for profiling Java and .NET applications.

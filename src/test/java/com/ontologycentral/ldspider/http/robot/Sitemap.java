@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 import net.sourceforge.sitemaps.SitemapParser;
 import net.sourceforge.sitemaps.SitemapUrl;
 
-import org.apache.commons.httpclient.HttpStatus;
+// import org.apache.commons.httpclient.HttpStatus; // Removed this line
+import org.apache.http.HttpStatus; // Added this line
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -57,7 +58,7 @@ public class Sitemap {
 				type = hres.getFirstHeader("Content-Type").getValue();
 			}
 
-			if (status == HttpStatus.SC_OK) {
+			if (status == HttpStatus.SC_OK) { // This line will now use org.apache.http.HttpStatus
 				if (hen != null) {
 					_sm = new net.sourceforge.sitemaps.Sitemap(u.toURL());
 					SitemapParser sp = new SitemapParser();

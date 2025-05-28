@@ -15,14 +15,21 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.zip.GZIPOutputStream;
 
-import junit.framework.TestCase;
-
 import com.ontologycentral.ldspider.queue.HashTableRedirects;
 import com.ontologycentral.ldspider.queue.Redirects;
 import com.ontologycentral.ldspider.seen.HashSetSeen;
 import com.ontologycentral.ldspider.seen.Seen;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
 
-public class MainTest extends TestCase {
+import static org.junit.Assert.*;
+
+public class MainTest {
+	
+	@Rule public TestName name = new TestName();
+	
+	@Test
 	public void testReadFromThisFileIntoThisRedirects() throws IOException,
 			URISyntaxException {
 		String[] suffixes = { ".gz", ".txt" };
@@ -31,7 +38,7 @@ public class MainTest extends TestCase {
 
 			Redirects redirects = new HashTableRedirects();
 
-			File tempfile = File.createTempFile(this.getName(), suffix);
+			File tempfile = File.createTempFile(name.getMethodName(), suffix);
 			tempfile.deleteOnExit();
 
 			Map<URI, URI> testDataRedirects = new HashMap<URI, URI>();
@@ -59,16 +66,17 @@ public class MainTest extends TestCase {
 		}
 
 	}
-
+	
+	@Test
 	public void testReadFromThisFileIntoThisSeen()
-			throws FileNotFoundException, IOException, URISyntaxException {
+			throws IOException, URISyntaxException {
 		String[] suffixes = { ".gz", ".txt" };
 
 		for (String suffix : suffixes) {
 
 			Seen seen = new HashSetSeen();
 
-			File tempfile = File.createTempFile(this.getName(), suffix);
+			File tempfile = File.createTempFile(name.getMethodName(), suffix);
 			tempfile.deleteOnExit();
 
 			Set<URI> testDataSeen = new HashSet<URI>();
@@ -79,7 +87,7 @@ public class MainTest extends TestCase {
 			BufferedWriter bw = createBWforFile(tempfile);
 
 			for (URI u : testDataSeen) {
-				bw.write(u.toString());
+				bw.write("<" + u.toString() + "> .");
 				bw.write(System.getProperty("line.separator"));
 			}
 

@@ -1,6 +1,6 @@
 package com.ontologycentral.ldspider.any23;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.*; // This import is fine, though not used in the snippet
 
 import java.util.Arrays;
 
@@ -8,9 +8,16 @@ import org.apache.any23.extractor.ExtractionContext;
 import org.apache.any23.writer.TripleHandler;
 import org.apache.any23.writer.TripleHandlerException;
 import org.junit.Test;
-import org.openrdf.model.impl.BNodeImpl;
-import org.openrdf.model.impl.LiteralImpl;
-import org.openrdf.model.impl.URIImpl;
+// Removed old OpenRDF imports:
+// import org.openrdf.model.impl.BNodeImpl;
+// import org.openrdf.model.impl.LiteralImpl;
+// import org.openrdf.model.impl.URIImpl;
+
+// Added new RDF4J imports:
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.IRI;
+
 import org.semanticweb.yars.nx.Node;
 import org.semanticweb.yars.nx.parser.Callback;
 
@@ -35,12 +42,17 @@ public class CallbackNQuadTripleHandlerTest {
 		};
 
 		TripleHandler th = new CallbackNQuadTripleHandler(cb);
+		
+		// Added ValueFactory instantiation
+		ValueFactory vf = SimpleValueFactory.getInstance();
 
-		th.receiveTriple(new BNodeImpl("subjBnode"), new URIImpl(
-				"http://blubb.de/prädikat"), new LiteralImpl("aaääßßá",
-				new URIImpl("http://blöbb.de/dt")), null,
-				new ExtractionContext("bla", new URIImpl("http://blübb.de/c")));
-
+		// Updated receiveTriple call
+		th.receiveTriple(
+		    vf.createBNode("subjBnode"), 
+		    vf.createIRI("http://blubb.de/prädikat"), 
+		    vf.createLiteral("aaääßßá", vf.createIRI("http://blöbb.de/dt")), 
+		    null, // Graph IRI can be null
+		    new ExtractionContext("bla", vf.createIRI("http://blübb.de/c")) // Updated ExtractionContext
+		);
 	}
-
 }
