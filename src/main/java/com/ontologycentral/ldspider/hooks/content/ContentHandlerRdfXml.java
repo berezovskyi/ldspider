@@ -58,11 +58,10 @@ public class ContentHandlerRdfXml implements ContentHandler {
 			
 			return true;
 		} catch (ParseException e) {
-			_log.log(Level.INFO, "Could not parse document");
-			_log.log(Level.FINER, e, () -> "Could not parse document");
+			_log.log(Level.INFO, "Could not parse document", e);
 			return false;
 		} catch (IOException e) {
-			_log.log(Level.WARNING, e, () -> "Could not read document");
+			_log.log(Level.WARNING, "Could not read document", e);
 			return false;
 //		} catch (NullPointerException e) {
 //			_log.log(Level.WARNING, "Could not read document", e);

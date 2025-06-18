@@ -40,7 +40,7 @@ public class CallbackNQuadTripleHandler implements TripleHandler {
         // XXX: The following line will cause a compile error as getDocumentIRI() from Any23 returns org.apache.any23.model.IRI
         // For now, this change focuses on RDF4J types as per instructions.
         // A further change will be needed here or in the convert method's call signature.
-		cont = convert(arg4.getDocumentIRI()); 
+		cont = convert(arg4.getDocumentIRI());
 
 		if (arg0 instanceof IRI) // Changed URI to IRI
 			subj = convert((IRI) arg0);
@@ -88,7 +88,7 @@ public class CallbackNQuadTripleHandler implements TripleHandler {
 
 	/**
 	 * Converting a BNode. Context required for NxParser's BNode creation code.
-	 * 
+	 *
 	 * @param arg0
 	 *            the BNode in openrdf type hierarchy
 	 * @param context

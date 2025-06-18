@@ -16,8 +16,14 @@ import com.ontologycentral.ldspider.hooks.links.LinkFilterDefault;
 import com.ontologycentral.ldspider.hooks.links.LinkFilterDummy;
 import com.ontologycentral.ldspider.hooks.sink.SinkCallback;
 
+// Added necessary imports:
+import com.ontologycentral.ldspider.seen.Seen;
+import com.ontologycentral.ldspider.seen.SeenMem;
+import com.ontologycentral.ldspider.queue.Redirects;
+import com.ontologycentral.ldspider.queue.DummyRedirects;
 
-public class CrawlerTest  {
+
+public class CrawlerTest extends TestCase {
 //	public void testCrawl() throws Exception {
 //		Crawler c = new Crawler(1);
 //
@@ -31,34 +37,36 @@ public class CrawlerTest  {
 //	}
 	
 	
-//	public void testCrawl2() throws Exception {
-//		System.setProperty("http.proxyHost", "localhost");
-//		System.setProperty("http.proxyPort", "3128");
-//
-//		Crawler c = new Crawler(1);
-//		
-//		Frontier frontier = new BasicFrontier();
-//		frontier.add(new URI("http://harth.org/andreas/foaf.rdf"));
-//		//frontier.add(new URI("http://umbrich.net/foaf.rdf"));
-//
-//		//frontier.setBlacklist(CrawlerConstants.BLACKLIST);
-//		
-//		LinkFilter lf = new LinkFilterDefault(frontier);
-//
-//        c.setFetchFilter(new FetchFilterRdfXml());
-//        c.setLinkFilter(lf);
-//
-//        //c.setLinkFilter(new LinkFilterDummy());
-//
-//		ErrorHandler eh = new ErrorHandlerLogger(null, null);
-//		c.setErrorHandler(eh);
-//		
-//		Callback cb = new CallbackNxOutputStream(System.out);
-//		SinkCallback sc = new SinkCallback(cb, true);
-//		
-//		c.setOutputCallback(sc);
-//
-//		c.evaluateBreadthFirst(frontier, 1, -1, -1);
-//	}
-}
+	public void testCrawl2() throws Exception {
+		System.setProperty("http.proxyHost", "localhost");
+		System.setProperty("http.proxyPort", "3128");
 
+		Crawler c = new Crawler(1);
+
+		Frontier frontier = new BasicFrontier();
+		frontier.add(new URI("http://harth.org/andreas/foaf.rdf"));
+		//frontier.add(new URI("http://umbrich.net/foaf.rdf"));
+
+		//frontier.setBlacklist(CrawlerConstants.BLACKLIST);
+
+		LinkFilter lf = new LinkFilterDefault(frontier);
+
+        c.setFetchFilter(new FetchFilterRdfXml());
+        c.setLinkFilter(lf);
+
+        //c.setLinkFilter(new LinkFilterDummy());
+
+		ErrorHandler eh = new ErrorHandlerLogger(null, null);
+		c.setErrorHandler(eh);
+
+		Callback cb = new CallbackNxOutputStream(System.out);
+		SinkCallback sc = new SinkCallback(cb, true);
+
+		c.setOutputCallback(sc);
+
+		// Updated call to evaluateBreadthFirst:
+		Seen seen = new SeenMem();
+		Redirects redirects = new DummyRedirects();
+		c.evaluateBreadthFirst(frontier, seen, redirects, 1, -1, -1, -1, false);
+	}
+}

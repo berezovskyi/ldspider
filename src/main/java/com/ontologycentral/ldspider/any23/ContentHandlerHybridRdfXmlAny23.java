@@ -10,9 +10,9 @@ import com.ontologycentral.ldspider.http.Headers.Treatment;
 /**
  * A content handler that uses the ContentHandlerRdfXml for RDFXML and Any23
  * otherwise.
- * 
+ *
  * @author Tobias Kaefer
- * 
+ *
  */
 public class ContentHandlerHybridRdfXmlAny23 extends
 		AllrounderPretendingContentHandler {

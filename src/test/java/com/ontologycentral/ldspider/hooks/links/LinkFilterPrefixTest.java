@@ -6,17 +6,13 @@ import java.util.Iterator;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
 import org.semanticweb.yars.nx.parser.NxParser;
 
 import com.ontologycentral.ldspider.frontier.BasicFrontier;
 import com.ontologycentral.ldspider.frontier.Frontier;
 
-import static org.junit.Assert.*;
-
-public class LinkFilterPrefixTest {
+public class LinkFilterPrefixTest extends TestCase {
 	
-	@Test
 	public void test() throws Exception {
 		drugbankTest();
 	}
@@ -38,12 +34,12 @@ public class LinkFilterPrefixTest {
 			"<http://www.uniprot.org/uniprot/P20815> .";
 
 		//ABox
-//		assertEquals("Add all 3 unique ABox URIs", 3, count(statements, "http://", true, false));
-//		assertEquals("Add all 2 unique ABox URIs from Drugbank", 2, count(statements, prefix, true, false));
-//		assertEquals("Don't add ABox URIs with unknown prefixes", 0, count(statements, "http://UnknownPrefix", true, false));
-//		
-//		//TBox
-//		assertEquals("Add all 4 unique TBox", 4, count(statements, prefix, false, true));
+		assertEquals("Add all 3 unique ABox URIs", 3, count(statements, "http://", true, false));
+		assertEquals("Add all 2 unique ABox URIs from Drugbank", 2, count(statements, prefix, true, false));
+		assertEquals("Don't add ABox URIs with unknown prefixes", 0, count(statements, "http://UnknownPrefix", true, false));
+
+		//TBox
+		assertEquals("Add all 4 unique TBox", 4, count(statements, prefix, false, true));
 		assertEquals("Add all TBox URIs, even with unknown prefixes", 4, count(statements, "http://UnknownPrefix", false, true));
 	}
 	
@@ -60,13 +56,10 @@ public class LinkFilterPrefixTest {
 		while(parser.hasNext()) {
 			filter.processStatement(parser.next());
 		}
-		
+
 		//Count filtered URIs
 		int c = 0;
 		Iterator<URI> iter = frontier.iterator();
-		
-		filter.endDocument();
-		
 		while(iter.hasNext()) {
 			iter.next();
 			c++;

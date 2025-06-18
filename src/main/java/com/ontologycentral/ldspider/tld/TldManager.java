@@ -19,20 +19,20 @@ import org.apache.http.client.methods.HttpGet;
 
 import com.ontologycentral.ldspider.http.ConnectionManager;
 
-public class TldManager implements Serializable {
+public class TldManager implements Serializable{
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	String TLD_URI = "https://publicsuffix.org/list/effective_tld_names.dat";
+	String TLD_URI = "http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.dat?raw=1";
 
 	private static Logger _log = Logger.getLogger(TldManager.class.getName());
 
     HashMap<String, Tld> TLDs = null;	// map of tlds to their properties
 
     public TldManager() throws IOException {
-		read(TldManager.class.getClassLoader().getResourceAsStream("tld.dat"));
+		read(TldManager.class.getResourceAsStream("tld.dat"));
     }   
     
     void read(InputStream is) throws IOException {

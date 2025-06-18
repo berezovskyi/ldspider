@@ -40,14 +40,14 @@ import com.ontologycentral.ldspider.http.Headers.Treatment;
 
 /**
  * A Content Handler that uses Any23 (not via server).
- * 
+ *
  * @author Tobias Kaefer
- * 
+ *
  */
 public class ContentHandlerAny23 implements ContentHandler {
 
 	private final Logger _log = Logger.getLogger(this.getClass().getName());
-	
+
 	private final Any23 runner;
 	private final TripleHandler headerTripleHandler;
 	private final Headers.Treatment headerTreatment;
@@ -141,7 +141,7 @@ public class ContentHandlerAny23 implements ContentHandler {
 			else
 				mimeAndQualityStringList.add(entry.getKey() + ";q="
 						+ entry.getValue());
-		
+
 		return mimeAndQualityStringList
 				.toArray(new String[mimeAndQualityStringList.size()]);
 	}
@@ -166,7 +166,7 @@ public class ContentHandlerAny23 implements ContentHandler {
 	/**
 	 * Takes the mime types for this ContentHandler and the ones supplied and
 	 * composes a string for the accept header from it.
-	 * 
+	 *
 	 * @param moreMimeTypes
 	 * @return a string for the HTTP accept header
 	 */
@@ -187,7 +187,7 @@ public class ContentHandlerAny23 implements ContentHandler {
 			Callback callback) {
 		try {
 			if (headerTreatment == Treatment.DROP)
-			
+
 			runner.extract(
 					new ByteArrayDocumentSource(source, uri.toASCIIString(),
 							mime), new IgnoreOrDumpAny23addedSindiceStuff(

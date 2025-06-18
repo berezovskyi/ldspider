@@ -60,7 +60,7 @@ public class LinkFilterDefault implements LinkFilter {
 		_log.fine("seeing " + Nodes.toN3(nx));
 		for (int i = 0; i < Math.min(nx.length, 3); i++) {
 			if (nx[i] instanceof Resource) {
-//				addUri(nx, i);
+				addUri(nx, i);
 				//Subject
 				if(i == 0 && _followABox) {
 					if(_followABox) addABox(nx, i);
@@ -126,9 +126,7 @@ public class LinkFilterDefault implements LinkFilter {
 					}
 					if (!presumablyDiscardedWhileAdding) {
 						_log.fine("adding " + nx[i].toString() + " to frontier");
-						if (_eh != null) {
-							_eh.handleLink(nx[nx.length - 1], nx[i]);
-						}
+						_eh.handleLink(nx[nx.length - 1], nx[i]);
 					}
 				}
 			} catch (URISyntaxException e) {

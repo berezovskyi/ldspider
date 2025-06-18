@@ -42,15 +42,15 @@ public class CallbackNQuadTripleHandlerTest {
 		};
 
 		TripleHandler th = new CallbackNQuadTripleHandler(cb);
-		
+
 		// Added ValueFactory instantiation
 		ValueFactory vf = SimpleValueFactory.getInstance();
 
 		// Updated receiveTriple call
 		th.receiveTriple(
-		    vf.createBNode("subjBnode"), 
-		    vf.createIRI("http://blubb.de/prädikat"), 
-		    vf.createLiteral("aaääßßá", vf.createIRI("http://blöbb.de/dt")), 
+		    vf.createBNode("subjBnode"),
+		    vf.createIRI("http://blubb.de/prädikat"),
+		    vf.createLiteral("aaääßßá", vf.createIRI("http://blöbb.de/dt")),
 		    null, // Graph IRI can be null
 		    new ExtractionContext("bla", vf.createIRI("http://blübb.de/c")) // Updated ExtractionContext
 		);

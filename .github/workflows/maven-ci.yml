@@ -2,19 +2,16 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ master, main, trunk ] # Assuming 'master' is your main branch, adjust if different
+    branches: [ master ] # Assuming 'master' is your main branch, adjust if different
   pull_request:
-    branches: [ master, main, trunk ] # Assuming 'master' is your main branch, adjust if different
+    branches: [ master ] # Assuming 'master' is your main branch, adjust if different
 
 jobs:
   build:
-    timeout-minutes: 15
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
-        java: [ '17', '21', '24' ] # JDK versions to test against
-    
+        java: [ '8', '11', '17', '21', '24' ] # JDK versions to test against
 
     name: Build with JDK ${{ matrix.java }}
     steps:
@@ -28,4 +25,4 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: mvn -B clean test --file pom.xml
+        run: mvn -B clean verify --file pom.xml

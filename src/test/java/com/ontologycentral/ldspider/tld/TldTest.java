@@ -4,9 +4,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
 import junit.framework.TestCase;
@@ -37,8 +34,8 @@ public class TldTest extends TestCase {
 
 		TldManager tldm = new TldManager();
 		
-		InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("uris.txt.gz");
-		InputStream is = new GZIPInputStream(Objects.requireNonNull(resourceAsStream));		
+		InputStream is = new GZIPInputStream(new FileInputStream("test/uris.txt.gz"));
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 		int i = 0;

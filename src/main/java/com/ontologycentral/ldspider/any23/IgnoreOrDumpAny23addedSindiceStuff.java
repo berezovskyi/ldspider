@@ -14,9 +14,9 @@ import org.eclipse.rdf4j.model.Value;
  * file. This {@link TripleHandler} drops such triples so the output of a file
  * that has been parsed two times and has not changed in the meantime, produce
  * the same output.
- * 
+ *
  * @author "Tobias Kaefer"
- * 
+ *
  */
 
 public class IgnoreOrDumpAny23addedSindiceStuff implements TripleHandler {
@@ -51,10 +51,10 @@ public class IgnoreOrDumpAny23addedSindiceStuff implements TripleHandler {
 	}
 
 	@Override
-	public void receiveTriple(Resource s, IRI p, Value o, IRI g, 
+	public void receiveTriple(Resource s, IRI p, Value o, IRI g,
 			ExtractionContext context) throws TripleHandlerException {
 		if (p.stringValue().startsWith(SINDICE.NS))
-			if (dumpHeaders && headerTripleHandler != null) 
+			if (dumpHeaders && headerTripleHandler != null)
 				headerTripleHandler.receiveTriple(s, p, o, g, context);
 			else
 				return;

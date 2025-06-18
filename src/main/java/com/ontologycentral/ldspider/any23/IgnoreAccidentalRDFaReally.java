@@ -44,7 +44,7 @@ import org.eclipse.rdf4j.model.Value;
  * A {@link TripleHandler} that suppresses output of the RDFa parser if the
  * document only contains "accidental" RDFa, like stylesheet links and other
  * non-RDFa uses of HTML's
- * 
+ *
  * @author Richard Cyganiak (richard@cyganiak.de)
  * @author Tobias Kaefer
  */
@@ -109,7 +109,7 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param wrapped
 	 *            the decorated triple handler.
 	 * @param alwaysSuppressCSSTriples
@@ -129,7 +129,7 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 	}
 
 	@Override
-	public void startDocument(org.eclipse.rdf4j.model.IRI documentIRI) throws TripleHandlerException { 
+	public void startDocument(org.eclipse.rdf4j.model.IRI documentIRI) throws TripleHandlerException {
 		blocker.startDocument(documentIRI);
 	}
 
@@ -143,7 +143,7 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 	}
 
 	@Override
-	public void receiveTriple(Resource s, IRI p, Value o, IRI g, 
+	public void receiveTriple(Resource s, IRI p, Value o, IRI g,
 			ExtractionContext context) throws TripleHandlerException {
 		// Suppress stylesheet triples.
 		if (alwaysSuppressCSSTriples
@@ -169,7 +169,7 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 
 	@Override
 	public void closeContext(ExtractionContext context)
-			throws TripleHandlerException { 
+			throws TripleHandlerException {
 		blocker.closeContext(context);
 	}
 
@@ -185,7 +185,7 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 	}
 
 	@Override
-	public void endDocument(org.eclipse.rdf4j.model.IRI documentIRI) throws TripleHandlerException { 
+	public void endDocument(org.eclipse.rdf4j.model.IRI documentIRI) throws TripleHandlerException {
 		blocker.endDocument(documentIRI);
 	}
 
@@ -200,10 +200,10 @@ public class IgnoreAccidentalRDFaReally implements TripleHandler {
 	 * http://example.org/blashortcut derived from a document
 	 * http://example.org/bla containing &lt;link rel="shortcut icon"&gt; in the
 	 * HTML header.
-	 * 
+	 *
 	 * Some RDFa parsers like pyRdfa drop them straight away, but not the one
 	 * that is in any23 at the moment (as of any23 version 0.9.0).
-	 * 
+	 *
 	 * @param u
 	 *            the URI
 	 * @param document

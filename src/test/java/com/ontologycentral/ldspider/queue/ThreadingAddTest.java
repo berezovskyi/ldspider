@@ -17,46 +17,44 @@ import com.ontologycentral.ldspider.queue.SpiderQueue;
 import com.ontologycentral.ldspider.tld.TldManager;
 
 
-public class ThreadingAddTest {
+public class ThreadingAddTest extends TestCase {
 	public static int THREADS = 64;
 	
-//	public void testThreading() throws Exception {
-//		TldManager tldm = new TldManager();
-//		
-//		// FIXME: does not compile at all
-//		SpiderQueue fq = new BreadthFirstQueue(tldm, 5, 5);
-//		Frontier f = new BasicFrontier();
-//		
-//		Thread[] ts = new Thread[THREADS];
-//		
-//		for (int i = 0; i < THREADS; i++) {
-//			ts[i] = new Thread(new Worker(fq, f));
-//			ts[i].start();
-//		}
-//		
-//		for (int i = 0; i < THREADS; i++) {
-//			ts[i].join();
-//		}
-//	}	
+	public void testThreading() throws Exception {
+		TldManager tldm = new TldManager();
+
+		SpiderQueue fq = new BreadthFirstQueue(tldm, 5, 5);
+		Frontier f = new BasicFrontier();
+
+		Thread[] ts = new Thread[THREADS];
+
+		for (int i = 0; i < THREADS; i++) {
+			ts[i] = new Thread(new Worker(fq, f));
+			ts[i].start();
+		}
+
+		for (int i = 0; i < THREADS; i++) {
+			ts[i].join();
+		}
+	}
 	
-//	public void testThreadingLoadBalancing() throws Exception {
-//		TldManager tldm = new TldManager();
-//		
-//		// FIXME: does not compile at all
-//		SpiderQueue fq = new LoadBalancingQueue(tldm);
-//		Frontier f = new RankedFrontier();
-//		
-//		Thread[] ts = new Thread[THREADS];
-//		
-//		for (int i = 0; i < THREADS; i++) {
-//			ts[i] = new Thread(new Worker(fq, f));
-//			ts[i].start();
-//		}
-//		
-//		for (int i = 0; i < THREADS; i++) {
-//			ts[i].join();
-//		}
-//	}	
+	public void testThreadingLoadBalancing() throws Exception {
+		TldManager tldm = new TldManager();
+
+		SpiderQueue fq = new LoadBalancingQueue(tldm);
+		Frontier f = new RankedFrontier();
+
+		Thread[] ts = new Thread[THREADS];
+
+		for (int i = 0; i < THREADS; i++) {
+			ts[i] = new Thread(new Worker(fq, f));
+			ts[i].start();
+		}
+
+		for (int i = 0; i < THREADS; i++) {
+			ts[i].join();
+		}
+	}
 }
 
 class Worker implements Runnable {
